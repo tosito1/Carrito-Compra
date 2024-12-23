@@ -1,4 +1,4 @@
-package com.dss.carritocompra
+package com.dss.carritocompra.models
 
 data class Product(
     val id: Long,

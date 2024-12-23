@@ -1,6 +1,5 @@
-package com.dss.carritocompra.ui.theme
+package com.dss.carritocompra.ui
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

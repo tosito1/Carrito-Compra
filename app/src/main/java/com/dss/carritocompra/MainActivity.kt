@@ -2,33 +2,50 @@ package com.dss.carritocompra
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.dss.carritocompra.ui.CarritoCompraTheme
+import com.dss.carritocompra.api.ApiClient
+import com.dss.carritocompra.api.ApiService
+import com.dss.carritocompra.models.Product
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
-    private val apiService: ApiService = ApiClient.retrofit.create(ApiService::class.java)
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        // Prueba básica de la API
-        fetchProducts()
-    }
+        // Configuración de edge-to-edge y diseño de la UI
+        enableEdgeToEdge()
+        setContent {
+            CarritoCompraTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Greeting(
+                        name = "Android",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
 
-    private fun fetchProducts() {
+        // Llamada API para obtener productos
+        val apiService = ApiClient.retrofit.create(ApiService::class.java)
         apiService.getAllProducts().enqueue(object : Callback<List<Product>> {
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                 if (response.isSuccessful) {
-                    response.body()?.let { productList ->
-                        for (product in productList) {
-                            Log.d("API_SUCCESS", "Product: ${product.name}, Price: ${product.price}")
-                        }
-                    } ?: Log.e("API_ERROR", "Response body is null")
+                    val products = response.body()
+                    Log.d("API_RESPONSE", "Products: $products")
                 } else {
-                    Log.e("API_ERROR", "Response Code: ${response.code()}")
+                    Log.e("API_ERROR", "Error code: ${response.code()}")
                 }
             }
 
@@ -36,5 +53,21 @@ class MainActivity : AppCompatActivity() {
                 Log.e("API_ERROR", "Failure: ${t.message}")
             }
         })
+    }
+}
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    CarritoCompraTheme {
+        Greeting("Android")
     }
 }

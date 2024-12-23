@@ -1,4 +1,4 @@
-package com.dss.carritocompra.ui.theme
+package com.dss.carritocompra.ui
 
 import androidx.compose.ui.graphics.Color
 
