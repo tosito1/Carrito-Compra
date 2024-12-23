@@ -6,8 +6,18 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import com.dss.carritocompra.models.LoginResponse
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 
 interface ApiService {
+
+    @POST("/login")
+    fun login(
+        @Query("username") username: String,
+        @Query("password") password: String
+    ): Call<LoginResponse>
+
     @GET("/api/products")
     fun getAllProducts(): Call<List<Product>>
 
