@@ -26,6 +26,6 @@
         android:id="@+id/buttonAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar"
+        android:text="Añadir al carro"
         android:layout_marginStart="8dp" />
 </LinearLayout>
