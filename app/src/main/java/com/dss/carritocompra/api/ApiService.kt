@@ -7,6 +7,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import com.dss.carritocompra.models.LoginResponse
+import com.dss.carritocompra.models.ProductsResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 
@@ -19,7 +20,7 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("/api/products")
-    fun getAllProducts(): Call<List<Product>>
+    fun getAllProducts(): Call<ProductsResponse>
 
     @POST("/api/products/add")
     fun addProduct(@Query("name") name: String, @Query("price") price: Double): Call<Void>
