@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.play.services.maps)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -58,12 +62,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // Retrofit for API requests
-    // Retrofit for API requests
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // Gson for JSON serialization
     implementation("com.google.code.gson:gson:2.8.8")
+
+    implementation ("org.osmdroid:osmdroid-android:6.1.14")
+
 
     // AndroidX libraries
     implementation("androidx.appcompat:appcompat:1.3.1")

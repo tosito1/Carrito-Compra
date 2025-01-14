@@ -36,10 +36,16 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
+        // Botón para abrir el mapa
+        val buttonOpenMap: Button = findViewById(R.id.buttonOpenMap)
+        buttonOpenMap.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        }
+
         // Llamar a la API para obtener los productos
         fetchProducts()
     }
-
 
     private fun fetchProducts() {
         val apiService = ApiClient.retrofit.create(ApiService::class.java)
@@ -69,7 +75,4 @@ class MainActivity : ComponentActivity() {
             }
         })
     }
-
-
-
 }

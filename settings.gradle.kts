@@ -16,9 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = java.net.URI("https://oss.sonatype.org/content/repositories/snapshots/") }
     }
 }
 
 rootProject.name = "Carrito Compra"
 include(":app")
- 
