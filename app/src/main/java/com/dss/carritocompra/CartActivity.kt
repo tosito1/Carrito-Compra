@@ -1,6 +1,5 @@
 package com.dss.carritocompra
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -22,18 +21,26 @@ class CartActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewCart)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // Obtener los productos del carrito
         val cartProducts = CartManager.getCartItems().toMutableList()
+
+        // Configurar el adapter y manejar el clic en el botón "Eliminar"
         productAdapter = ProductAdapter(cartProducts) { product ->
-            CartManager.removeProduct(product)
-            productAdapter.removeProduct(product)
+            CartManager.removeProduct(product)  // Eliminar del carrito
+            val position = cartProducts.indexOf(product)
+            cartProducts.removeAt(position)  // Eliminar de la lista local
+            productAdapter.notifyItemRemoved(position)  // Notificar el RecyclerView
+            Toast.makeText(this, "${product.name} eliminado del carrito", Toast.LENGTH_SHORT).show()
         }
         recyclerView.adapter = productAdapter
 
+        // Configurar el botón de "Checkout"
         val buttonCheckout: Button = findViewById(R.id.buttonCheckout)
         buttonCheckout.setOnClickListener {
             if (CartManager.getCartItems().isNotEmpty()) {
-                CartManager.clearCart()
-                productAdapter.notifyDataSetChanged()
+                CartManager.clearCart()  // Limpiar el carrito
+                cartProducts.clear()  // Limpiar la lista local
+                productAdapter.notifyDataSetChanged()  // Actualizar la vista
                 Toast.makeText(this, "Compra finalizada", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show()

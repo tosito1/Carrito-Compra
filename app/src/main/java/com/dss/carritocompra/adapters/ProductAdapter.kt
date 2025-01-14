@@ -1,55 +1,54 @@
 package com.dss.carritocompra.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dss.carritocompra.R
 import com.dss.carritocompra.models.Product
-import com.dss.carritocompra.models.ProductsResponse
-import com.dss.carritocompra.utils.CartManager
-import retrofit2.Call
+import com.squareup.picasso.Picasso
 
-class ProductAdapter(
-    private val productList: MutableList<Product>,
-    private val onAddToCartClick: (Product) -> Unit
-) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private val products: List<Product>, private val onAddToCartClick: (Product) -> Unit) :
+    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        val textViewPrice: TextView = itemView.findViewById(R.id.textViewPrice)
-        val buttonAddToCart: Button = itemView.findViewById(R.id.buttonAddToCart)
-    }
-
+    // Método para crear un nuevo ViewHolder cuando es necesario
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
         return ProductViewHolder(view)
     }
 
+    // Método para vincular datos a cada ítem del RecyclerView
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = productList[position]
-        holder.textViewName.text = product.name
-        holder.textViewPrice.text = "$${product.price}"
+        val product = products[position]
 
-        // Configurar el botón de agregar al carrito
-        holder.buttonAddToCart.setOnClickListener {
+        // Vincular los datos al layout
+        holder.productName.text = product.name
+        holder.productPrice.text = "€ ${product.price}"
+
+        // Comprobar si la URL de la imagen es válida
+        val imageUrl = "android.resource://${holder.itemView.context.packageName}/drawable/ic_product_placeholder"
+
+        // Cargar la imagen del producto o la imagen predeterminada usando Picasso
+        Picasso.get().load(imageUrl).into(holder.productImage)
+
+        // Configurar el botón para agregar al carrito
+        holder.addToCartButton.setOnClickListener {
             onAddToCartClick(product)
         }
     }
 
+    // Método para obtener el número total de elementos en la lista
     override fun getItemCount(): Int {
-        return productList.size
+        return products.size
     }
 
-    fun removeProduct(product: Product) {
-        val position = productList.indexOf(product)
-        if (position != -1) {
-            productList.removeAt(position)
-            notifyItemRemoved(position)
-        }
+    // ViewHolder para manejar la vista de cada producto en el RecyclerView
+    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val productImage: ImageView = itemView.findViewById(R.id.product_image)
+        val productName: TextView = itemView.findViewById(R.id.product_name)
+        val productPrice: TextView = itemView.findViewById(R.id.product_price)
+        val addToCartButton: ImageView = itemView.findViewById(R.id.add_to_cart_button)
     }
 }
-

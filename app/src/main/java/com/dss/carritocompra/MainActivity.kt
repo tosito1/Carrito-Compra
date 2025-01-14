@@ -3,9 +3,8 @@ package com.dss.carritocompra
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dss.carritocompra.adapters.ProductAdapter
@@ -13,11 +12,13 @@ import com.dss.carritocompra.api.ApiClient
 import com.dss.carritocompra.api.ApiService
 import com.dss.carritocompra.models.ProductsResponse
 import com.dss.carritocompra.utils.CartManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.widget.Toolbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var productAdapter: ProductAdapter
 
@@ -25,21 +26,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Productos
+        // Configurar Toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolBar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Productos"
+
+        // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerViewProducts)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Botón ver carrito
-        val buttonOpenCart: Button = findViewById(R.id.buttonOpenCart)
-        buttonOpenCart.setOnClickListener {
-            val intent = Intent(this, CartActivity::class.java)
+        // Botón para acceder al mapa
+        val buttonOpenMap: FloatingActionButton = findViewById(R.id.buttonOpenMap)
+        buttonOpenMap.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
 
-        // Botón para abrir el mapa
-        val buttonOpenMap: Button = findViewById(R.id.buttonOpenMap)
-        buttonOpenMap.setOnClickListener {
-            val intent = Intent(this, MapsActivity::class.java)
+        // Botón para ver carrito
+        val buttonOpenCart: FloatingActionButton = findViewById(R.id.buttonOpenCart)
+        buttonOpenCart.setOnClickListener {
+            val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
         }
 
@@ -60,6 +66,7 @@ class MainActivity : ComponentActivity() {
                     val products = productsResponse?._embedded?.products?.toMutableList() ?: mutableListOf()
                     Log.d("API_RESPONSE", "Products: $products")
 
+                    // Crear el adapter para los productos
                     productAdapter = ProductAdapter(products) { product ->
                         CartManager.addProduct(product)
                         Toast.makeText(this@MainActivity, "${product.name} agregado al carrito", Toast.LENGTH_SHORT).show()

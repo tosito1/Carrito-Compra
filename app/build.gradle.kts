@@ -70,6 +70,8 @@ dependencies {
 
     implementation ("org.osmdroid:osmdroid-android:6.1.14")
 
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
 
     // AndroidX libraries
     implementation("androidx.appcompat:appcompat:1.3.1")
