@@ -34,7 +34,18 @@ interface ApiService {
     fun deleteProduct(@Path("id") id: Long): Call<Void>
 
     // Métodos relacionados al carrito
-    @POST("/cart/add/{id}")
+    @GET("/api/cart/products")
+    fun getCartProducts(): Call<List<Product>>
+
+    @GET("/cart/add/{id}")
     fun addProductToCart(@Path("id") productId: Long): Call<Void>
 
+    @POST("/cart/remove/{id}")
+    fun removeProductFromCart(@Path("id") productId: Long): Call<Void>
+
+    @POST("/api/cart/checkout")
+    fun checkoutCart(): Call<Void>
+
+    @POST("/api/cart/clear")
+    fun clearCart(): Call<Void>
 }

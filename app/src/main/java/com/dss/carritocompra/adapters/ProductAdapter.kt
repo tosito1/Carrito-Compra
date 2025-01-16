@@ -10,8 +10,10 @@ import com.dss.carritocompra.R
 import com.dss.carritocompra.models.Product
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(private val products: List<Product>, private val onAddToCartClick: (Product) -> Unit) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>,
+    private val onAddToCartClick: (Long) -> Unit
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     // Método para crear un nuevo ViewHolder cuando es necesario
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -22,20 +24,15 @@ class ProductAdapter(private val products: List<Product>, private val onAddToCar
     // Método para vincular datos a cada ítem del RecyclerView
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
-
-        // Vincular los datos al layout
         holder.productName.text = product.name
         holder.productPrice.text = "€ ${product.price}"
 
-        // Comprobar si la URL de la imagen es válida
-        val imageUrl = "android.resource://${holder.itemView.context.packageName}/drawable/ic_product_placeholder"
-
-        // Cargar la imagen del producto o la imagen predeterminada usando Picasso
-        Picasso.get().load(imageUrl).into(holder.productImage)
-
-        // Configurar el botón para agregar al carrito
+        // Manejar el clic en el botón de añadir al carrito
         holder.addToCartButton.setOnClickListener {
-            onAddToCartClick(product)
+            // Usamos el id extraído para agregar el producto al carrito
+            val productLink = product._links?.self?.href
+            val productId = productLink?.substringAfterLast("/")?.toLong() ?: 0L
+            onAddToCartClick(productId) // Pasa el ID del producto al listener
         }
     }
 
