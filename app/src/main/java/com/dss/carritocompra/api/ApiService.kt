@@ -18,8 +18,9 @@ interface ApiService {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): Call<Void>
 
+    // Métodos relacionados a los productos
     @GET("/api/products")
     fun getAllProducts(): Call<ProductsResponse>
 
@@ -31,4 +32,9 @@ interface ApiService {
 
     @POST("/api/products/delete/{id}")
     fun deleteProduct(@Path("id") id: Long): Call<Void>
+
+    // Métodos relacionados al carrito
+    @POST("/cart/add/{id}")
+    fun addProductToCart(@Path("id") productId: Long): Call<Void>
+
 }

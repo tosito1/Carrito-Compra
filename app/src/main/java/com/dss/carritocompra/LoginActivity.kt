@@ -38,28 +38,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin(username: String, password: String) {
-        apiService.login(username, password).enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+        apiService.login(username, password).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    val token = response.body()?.token
-                    if (!token.isNullOrEmpty()) {
-                        // Guardar el token para futuras solicitudes
-                        saveToken(token)
-                        Toast.makeText(this@LoginActivity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                        finish() // Volver a la pantalla anterior
-                    } else {
-                        Toast.makeText(this@LoginActivity, "Error: Respuesta vacía", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this@LoginActivity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    finish() // Vuelve a la pantalla anterior
                 } else {
                     Toast.makeText(this@LoginActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Toast.makeText(this@LoginActivity, "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
 
     private fun saveToken(token: String) {
         val sharedPreferences = getSharedPreferences("auth_prefs", MODE_PRIVATE)
