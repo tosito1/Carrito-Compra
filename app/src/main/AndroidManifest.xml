@@ -38,7 +38,7 @@
             android:name=".CheckoutActivity"
             android:label="Confirmar Compra"
             android:theme="@style/Theme.CarritoCompra" />
-
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>

@@ -13,10 +13,11 @@ import retrofit2.http.FormUrlEncoded
 
 interface ApiService {
 
+    @FormUrlEncoded
     @POST("/login")
     fun login(
-        @Query("username") username: String,
-        @Query("password") password: String
+        @Field("username") username: String,
+        @Field("password") password: String
     ): Call<LoginResponse>
 
     @GET("/api/products")

@@ -49,6 +49,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val fabAddProduct: FloatingActionButton = findViewById(R.id.fab)
+        fabAddProduct.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
         // Llamar a la API para obtener los productos
         fetchProducts()
     }
