@@ -1,5 +1,6 @@
 package com.dss.carritocompra
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -135,6 +136,13 @@ class CartActivity : AppCompatActivity() {
 
                     // Mostrar mensaje de éxito
                     Toast.makeText(this@CartActivity, "Compra finalizada y carrito vaciado", Toast.LENGTH_SHORT).show()
+
+                    // Volver a MainActivity después de finalizar la compra
+                    val intent = Intent(this@CartActivity, MainActivity::class.java)
+                    startActivity(intent)
+
+                    // Cerrar CartActivity para que no quede en el stack
+                    finish()
                 } else {
                     // Si hay un error en limpiar el carrito
                     Toast.makeText(this@CartActivity, "Error al limpiar el carrito", Toast.LENGTH_SHORT).show()
@@ -147,6 +155,7 @@ class CartActivity : AppCompatActivity() {
             }
         })
     }
+
 
 
 }
