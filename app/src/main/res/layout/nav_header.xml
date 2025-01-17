@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:src="@drawable/user_location" />
+        android:src="@drawable/ic_gente" />
 
     <TextView
         android:layout_width="wrap_content"

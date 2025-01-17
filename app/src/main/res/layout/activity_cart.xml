@@ -11,12 +11,12 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="?attr/colorPrimary"
+        android:background="#ff0099cc"
         android:title="Carrito de Compras"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@android:color/white" />
 
     <!-- Mensaje de carrito vacío -->
     <TextView
@@ -48,12 +48,12 @@
         android:id="@+id/buttonCheckout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finalizar Compra"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="#ff0099cc"
+        android:text="Finalizar Compra"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
