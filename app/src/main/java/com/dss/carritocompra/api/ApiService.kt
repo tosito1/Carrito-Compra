@@ -8,6 +8,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import com.dss.carritocompra.models.LoginResponse
 import com.dss.carritocompra.models.ProductsResponse
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 
@@ -40,8 +41,9 @@ interface ApiService {
     @GET("/cart/add/{id}")
     fun addProductToCart(@Path("id") productId: Long): Call<Void>
 
-    @POST("/cart/remove/{id}")
-    fun removeProductFromCart(@Path("id") productId: Long): Call<Void>
+    @DELETE("/api/cart/{productId}")
+    fun removeProductFromCart(@Path("productId") productId: Long): Call<Void>
+
 
     @POST("/api/cart/checkout")
     fun checkoutCart(): Call<Void>

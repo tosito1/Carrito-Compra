@@ -1,3 +1,10 @@
-<resources>
-    <string name="app_name">Carrito Compra</string>
-</resources>
+
+    <resources>
+        <!-- Cadenas para el ActionBarDrawerToggle -->
+        <string name="navigation_drawer_open">Abrir el menú</string>
+        <string name="navigation_drawer_close">Cerrar el menú</string>
+
+        <!-- Otras cadenas necesarias -->
+        <string name="app_name">Carrito Compra</string>
+        <string name="action_settings">Settings</string>
+    </resources>
